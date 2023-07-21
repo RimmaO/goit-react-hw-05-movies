@@ -1,15 +1,16 @@
 import { Suspense } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { Container, Header, NavigationLink } from './Layout.styled';
 
 const Layout = () => {
   return (
-    <>
-      <header>
+    <Container>
+      <Header>
         <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/movies">Movies</NavLink>
+          <NavigationLink to="/">Home</NavigationLink>
+          <NavigationLink to="/movies">Movies</NavigationLink>
         </nav>
-      </header>
+      </Header>
 
       <main>
         <Suspense fallback={<div>Loading page...</div>}>
@@ -18,7 +19,7 @@ const Layout = () => {
       </main>
 
       <footer>Copyright &copy; 2023 GoIT. Created by Rimma Ohanesian.</footer>
-    </>
+    </Container>
   );
 };
 

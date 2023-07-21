@@ -1,28 +1,21 @@
-import { getQuery } from 'components/Services/API';
 import { useEffect, useState } from 'react';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { getQuery } from 'components/Services/API';
+import {
+  Button,
+  Input,
+  Wrapper,
+} from 'components/SearchForm/SearchForm.styled';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const currentQuery = searchParams.get('currentQuery') ?? '';
-  // const [value, setValue] = useState(searchParams.get('currentQuery') ?? '');
-  console.log(movies);
+  const currentQuery = searchParams.get('query') ?? '';
   const location = useLocation();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    if (event.target.value === '') {
-      return alert('Input is empty');
-    }
-    setSearchParams({ currentQuery: event.target.value });
-  };
-
   useEffect(() => {
-    if (currentQuery === '') {
-      return;
-    }
+    !currentQuery && setSearchParams({});
+
     const addQuery = async () => {
       try {
         const data = await getQuery(currentQuery);
@@ -32,20 +25,25 @@ const Movies = () => {
       }
     };
     addQuery();
-  }, [currentQuery]);
+  }, [currentQuery, setSearchParams]);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+
+    if (currentQuery.trim() === '') {
+      return alert('Input is empty');
+    }
+    setSearchParams({ query: currentQuery });
+  };
 
   const handleChange = event => {
-    if (event.target.value === '') {
-      return setSearchParams({});
-    }
-    setSearchParams({ currentQuery: event.target.value });
-    // setValue(event.target.value);
+    setSearchParams({ query: event.target.value });
   };
 
   return (
     <>
-      <form className="form" onSubmit={handleSubmit}>
-        <input
+      <Wrapper className="form" onSubmit={handleSubmit}>
+        <Input
           className="input"
           type="text"
           id="search"
@@ -55,11 +53,10 @@ const Movies = () => {
           onChange={handleChange}
           value={currentQuery}
         />
-
-        <button type="submit" className="button">
+        <Button type="submit" className="button">
           Search
-        </button>
-      </form>
+        </Button>
+      </Wrapper>
       <ul>
         {movies.map(({ original_title, id }) => (
           <li key={id}>

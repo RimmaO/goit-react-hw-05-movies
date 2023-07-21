@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import { getMovies } from './../components/Services/API';
 import { Link, useLocation } from 'react-router-dom';
+import { getMovies } from './../components/Services/API';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();
-
-  // console.log(movies);
 
   useEffect(() => {
     const addMovies = async () => {

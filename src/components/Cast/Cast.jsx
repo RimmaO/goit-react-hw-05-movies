@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getCast } from './Services/API';
+import { getCast } from '../Services/API';
+import { Image } from './Cast.styled';
 
 const Cast = () => {
   const [movies, setMovies] = useState([]);
@@ -25,7 +26,7 @@ const Cast = () => {
       <ul>
         {movies.map(({ profile_path, name, character, id }) => (
           <li key={id}>
-            <img
+            <Image
               src={profile_path ? BASE_URL_IMG + profile_path : DEFAULT_URL_IMG}
               alt="cast"
             />

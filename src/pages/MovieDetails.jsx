@@ -1,11 +1,16 @@
-import { getDetails } from 'components/Services/API';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { getDetails } from 'components/Services/API';
+import { BackLink } from 'components/BackLink/BackLink';
+import { Container, Image } from 'components/MovieCard/MovieCard.styled';
 
 const MovieDetails = () => {
   const [movies, setMovies] = useState([]);
   const { movieId } = useParams();
+
   const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/movies');
+
   const BASE_URL_IMG = 'https://image.tmdb.org/t/p/w500';
   const DEFAULT_URL_IMG = 'https://placehold.co/600x400?font=roboto';
 
@@ -22,10 +27,9 @@ const MovieDetails = () => {
   }, [movieId]);
 
   return (
-    <>
-      <Link to={location.state?.from ?? '/movies'}>Go back</Link>
-
-      <img
+    <Container>
+      <BackLink to={backLink.current}>Go back</BackLink>
+      <Image
         src={
           movies.poster_path
             ? BASE_URL_IMG + movies.poster_path
@@ -64,10 +68,10 @@ const MovieDetails = () => {
           </li>
         </ul>
       </div>
-      <Suspense fallback={<div>Loading subpage...</div>}>
+      <Suspense fallback={<div>Loading page...</div>}>
         <Outlet />
       </Suspense>
-    </>
+    </Container>
   );
 };
 export default MovieDetails;
