@@ -9,8 +9,6 @@ import {
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
-  const [query, setQuery] = useState('');
-
   const [searchParams, setSearchParams] = useSearchParams();
   const currentQuery = searchParams.get('query') ?? '';
   const location = useLocation();
