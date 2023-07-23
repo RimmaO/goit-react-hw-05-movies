@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
+import { getQuery } from 'Services/API';
 import { Link, useLocation, useSearchParams } from 'react-router-dom';
-import { getQuery } from 'components/Services/API';
 import {
   Button,
   Input,
@@ -9,6 +9,8 @@ import {
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
+  const [query, setQuery] = useState('');
+
   const [searchParams, setSearchParams] = useSearchParams();
   const currentQuery = searchParams.get('query') ?? '';
   const location = useLocation();

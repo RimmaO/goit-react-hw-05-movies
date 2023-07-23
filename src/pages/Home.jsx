@@ -1,6 +1,6 @@
+import { getMovies } from 'Services/API';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { getMovies } from './../components/Services/API';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);

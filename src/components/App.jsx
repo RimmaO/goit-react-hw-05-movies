@@ -5,9 +5,9 @@ import Layout from './Layout/Layout';
 const Home = lazy(() => import('../pages/Home'));
 const Movies = lazy(() => import('../pages/Movies'));
 const MovieDetails = lazy(() => import('../pages/MovieDetails'));
+const NotFound = lazy(() => import('../pages/NotFound'));
 const Cast = lazy(() => import('./Cast/Cast'));
 const Reviews = lazy(() => import('./Reviews/Reviews'));
-const NotFound = lazy(() => import('../pages/NotFound'));
 
 export const App = () => {
   return (
@@ -19,16 +19,8 @@ export const App = () => {
           <Route path="cast" element={<Cast />} />
           <Route path="reviews" element={<Reviews />} />
         </Route>
+        <Route path="*" element={<NotFound />} />
       </Route>
-
-      <Route
-        path="*"
-        element={
-          <Suspense fallback={<div>Loading page...</div>}>
-            <NotFound />
-          </Suspense>
-        }
-      />
     </Routes>
   );
 };

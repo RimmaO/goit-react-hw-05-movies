@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { getDetails } from 'components/Services/API';
+import { getDetails } from 'Services/API';
 import { BackLink } from 'components/BackLink/BackLink';
 import { Container, Image } from 'components/MovieCard/MovieCard.styled';
 
