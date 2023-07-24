@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.form`
   display: inline-flex;
   align-items: center;
   position: relative;

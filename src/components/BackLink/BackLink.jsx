@@ -29,7 +29,7 @@ export const BackLink = ({ to, children }) => {
 
 BackLink.propTypes = {
   to: PropTypes.shape({
-    to: PropTypes.func,
+    to: PropTypes.string,
   }),
   children: PropTypes.node,
 };

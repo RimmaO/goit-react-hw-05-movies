@@ -10,8 +10,15 @@ import {
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [value, setValue] = useState(searchParams.get('query') ?? '');
   const currentQuery = searchParams.get('query') ?? '';
   const location = useLocation();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    setSearchParams({ query: value });
+    // setSearchParams({ query: event.target[0].value });  при неконтрольваному інпуті
+  };
 
   useEffect(() => {
     !currentQuery && setSearchParams({});
@@ -27,17 +34,8 @@ const Movies = () => {
     addQuery();
   }, [currentQuery, setSearchParams]);
 
-  const handleSubmit = event => {
-    event.preventDefault();
-
-    if (currentQuery.trim() === '') {
-      return alert('Input is empty');
-    }
-    setSearchParams({ query: currentQuery });
-  };
-
   const handleChange = event => {
-    setSearchParams({ query: event.target.value });
+    setValue(event.target.value);
   };
 
   return (
@@ -50,8 +48,10 @@ const Movies = () => {
           autoComplete="off"
           autoFocus
           placeholder="Search movies"
+          // defaultValue={currentQuery} - 2 варіант з сабміт при неконтрольваному інпуті
           onChange={handleChange}
-          value={currentQuery}
+          value={value}
+          // value={currentQuery} - 1 варіант без сабміту - всі результати пошуку, при неконтрольваному інпуті
         />
         <Button type="submit" className="button">
           Search
